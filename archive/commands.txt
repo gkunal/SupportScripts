@@ -1,0 +1,38 @@
+docker cp ./init_db.sql db_postgres:/docker-entrypoint-initdb.d/init_db.sql
+docker exec -u postgres db_postgres psql ether ether -f /docker-entrypoint-initdb.d/init_db.sql
+docker exec -it db_postgres /bin/bash
+
+mvn spring-boot:run -Dspring.profiles.active=development
+mvn spring-boot:run -Dspring-boot.run.profiles=development
+mvnDebug spring-boot:run -Dspring-boot.run.profiles=development
+
+curl  \
+--header 'Content-Type:application/json' \
+-X GET \
+'http://localhost:8080/cryptotrace/rualv'
+
+curl -d '{"node":"0xaA923Cd02364Bb8A4c3d6F894178d2e12231655C"}' \
+--header 'Content-Type:application/json' \
+-X POST \
+'http://localhost:8080/cryptotrace/trace'
+
+curl -d '{"node":"0x9c373482d180063c35b7f5698559d72d15932b8c"}' \
+--header 'Content-Type:application/json' \
+-X POST \
+'http://localhost:8080/cryptotrace/trace'
+
+curl -d '{"node":"0xeec606a66edb6f497662ea31b5eb1610da87ab5f"}' \
+--header 'Content-Type:application/json' \
+-X POST \
+'http://localhost:8080/cryptotrace/trace'
+
+0xb7443e088232cd680ff20b7518eba2fc9e1b3c32
+
+add is present and  transaction present.
+add is NOT present and txn present.
+add present and txn present.
+
+curl -d '{"node":"0xaA923Cd02364Bb8A4c3d6F894178d2e12231655C"}' \
+--header 'Content-Type:application/json' \
+-X POST \
+'http://localhost:8080/trustless/score'

@@ -1,0 +1,53 @@
+https://cloud.google.com/compute/docs/disks/?&_ga=2.64570858.-434765289.1635261527#pdperformance
+
+Use Linux Logical Volume Manager
+Disk 1 - SSD
+Transactions table.
+3 indexes - from_address, to_address, block_number
+size ?
+
+Disk 2 - Balanced Disk
+    Address table
+    address index ON SSD.
+    size?
+
+
+reset max_wal_size to original
+f_sync off before and after import turn it on.
+Move WAL to primary partition?
+
+Enable monitoring using below commands.
+
+https://www.datadoghq.com/blog/postgresql-monitoring/
+https://www.datadoghq.com/blog/postgresql-monitoring-tools/
+https://pghero.dokkuapp.com/tune
+
+
+
+create table transactions (
+hash1 uuid NOT NULL,
+hash2 uuid NOT NULL,
+from_address uuid NOT NULL,
+to_address uuid,
+value numeric(30,0),
+block_timestamp TIMESTAMP NOT NULL,
+block_number bigint NOT NULL,
+) tablespace ssd;
+create indexes
+
+
+create table addresses (
+address uuid NOT NULL,
+flags INTEGER,
+tags text
+) tablespace balanced_ssd;
+create indexes
+
+
+Create insert statements.
+
+Use Copy in JAVA
+
+
+
+increase work_mem after looking at statistics.
